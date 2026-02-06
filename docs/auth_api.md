@@ -13,7 +13,9 @@ POST /register/
 Body (JSON)
 
 {
-  "email": "user@mail.com",
+  "first_name": "Destine",
+  "last_name": "Honu",
+  "phone": "233xxxxxxxxx",
   "password": "password123"
 }
 
@@ -22,9 +24,8 @@ Body (JSON)
 POST /login/
 
 Body
-
 {
-  "email": "user@mail.com",
+  "phone": "233xxxxxxxxx",
   "password": "password123"
 }
 
@@ -50,13 +51,16 @@ GET /me/
 
 Headers
 
-Authorization: Bearer JWT_ACCESS_TOKEN
+<!-- Authorization: Bearer JWT_ACCESS_TOKEN -->
+Authorization: Bearer <access_token>
 
 
 ### Response
 
 {
-  "email": "user@mail.com",
+  "first_name": "Destine",
+  "last_name": "Honu",
+  "phone": "233xxxxxxxxx",
   "role": "PASSENGER"
 }
 
