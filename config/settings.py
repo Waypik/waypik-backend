@@ -12,13 +12,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = os.getenv('DEBUG', False)
 
-ALLOWED_HOSTS = [
-    '*',
-    '.onrender.com',  # Allow render domains
-]
-
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 # Application definition
 
@@ -82,8 +79,15 @@ DATABASES = {
     }
 }
 
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+DATABASES["default"] = dj_database_url.parse(
+    os.getenv("DATABASE_URL"), conn_max_age=600)
+
+#
+
+# https://dashboard.render.com/d/dpg-d686g63uibrs738suu1g-a
+
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
 
 # Static files configuration for Render
 STATIC_ROOT = BASE_DIR / "staticfiles"
