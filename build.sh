@@ -4,7 +4,7 @@
 set -o errexit
 
 # Navigate to the backend directory where manage.py is located
-cd waypik_backend
+# cd waypik_backend
 
 pip install -r requirements.txt
 

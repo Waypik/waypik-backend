@@ -10,7 +10,7 @@ services:
     name: waypik-backend
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "cd waypik_backend && gunicorn config.wsgi:application"
+    startCommand: "gunicorn config.wsgi:application"
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
