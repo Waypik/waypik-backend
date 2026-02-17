@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     # Providers
-    # 'allauth.socialaccount.providers.google', # Removed duplicate
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.twitter',
 
@@ -58,7 +57,7 @@ INSTALLED_APPS = [
     'bookings',
 ]
 
-SITE_ID = 1
+
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -72,18 +71,26 @@ REST_AUTH = {
     'JWT_AUTH_COOKIE': 'my-app-auth',
     'JWT_AUTH_REFRESH_COOKIE': 'my-app-refresh-auth',
     'TOKEN_MODEL': None,
+    'REGISTER_SERIALIZER': 'users.serializers.RegisterSerializer',
 }
 
+# Django Allauth Configuration for Phone-based Authentication
+# Using the new configuration format (allauth >= 0.50)
+ACCOUNT_LOGIN_METHODS = {'username'}  # Phone is treated as username
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'phone'  # Use phone as the username field
+ACCOUNT_EMAIL_VERIFICATION = 'none'  # No email verification needed
+# Email doesn't need to be unique since phone is the identifier
+ACCOUNT_UNIQUE_EMAIL = False
 
-# ACCOUNT_AUTHENTICATION_METHOD = 'username'
-# ACCOUNT_EMAIL_REQUIRED = False
-# ACCOUNT_USERNAME_REQUIRED = False
-# ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+# Signup configuration - using new format to avoid deprecation warnings
+ACCOUNT_SIGNUP_FIELDS = {
+    'username': {'required': True},  # This maps to 'phone' field
+    'email': {'required': False},
+}
 
-ACCOUNT_LOGIN_METHODS = {'email'}
-ACCOUNT_SIGNUP_FIELDS = ['email', 'password1*', 'password2*']
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SITE_ID = 1
 
 
 MIDDLEWARE = [

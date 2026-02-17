@@ -7,12 +7,27 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 
 # Create your models here.
 class UserManager(BaseUserManager):
-    def create_user(self, phone, password=None, **extra_fields):
-        if not phone:
-            raise ValueError("Phone number is required")
+    def create_user(self, phone=None, email=None, password=None, **extra_fields):
+        """
+        Create and save a regular user.
+        Requires either phone (for phone-based auth) or email (for social auth).
+        """
+        if not phone and not email:
+            raise ValueError("Either phone number or email is required")
 
-        user = self.model(phone=phone, **extra_fields)
-        user.set_password(password)
+        # Normalize email if provided
+        if email:
+            email = self.normalize_email(email)
+
+        user = self.model(phone=phone, email=email, **extra_fields)
+
+        # Set password (will be hashed automatically)
+        if password:
+            user.set_password(password)
+        else:
+            # For social auth users, set an unusable password
+            user.set_unusable_password()
+
         user.save(using=self._db)
         return user
 
@@ -20,6 +35,12 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("role", User.Role.SUPERADMIN)
+
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("Superuser must have is_staff=True.")
+
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("Superuser must have is_superuser=True.")
 
         return self.create_user(phone, password, **extra_fields)
 
@@ -32,8 +53,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         DRIVER = "DRIVER", "Driver"
         PASSENGER = "PASSENGER", "Passenger"
 
-    phone = models.CharField(max_length=20, unique=True)
-    email = models.EmailField(blank=True, null=True)
+    phone = models.CharField(max_length=20, unique=True, null=True, blank=True)
+    email = models.EmailField(unique=True, blank=True, null=True)
     first_name = models.CharField(max_length=150, blank=True)
     last_name = models.CharField(max_length=150, blank=True)
 
@@ -54,4 +75,4 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     def __str__(self):
-        return F"{self.phone} ({self.role})"
+        return f"{self.phone} ({self.role})"
