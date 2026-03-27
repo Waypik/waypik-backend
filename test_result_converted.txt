@@ -1,0 +1,97 @@
+﻿
+============================================================
+WAYPIK BACKEND API TESTS
+============================================================
+Make sure the development server is running!
+python manage.py runserver
+============================================================
+
+[TEST 1] Testing Registration...
+
+============================================================
+1. REGISTRATION TEST
+============================================================
+Status Code: 400
+Response: {
+  "username": [
+    "A user with this phone number already exists."
+  ]
+}
+============================================================
+
+python : Traceback (most 
+recent call last):
+At line:1 char:1
++ python test_api.py > 
+test_result.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (Traceba  
+  ck (most recent call las   
+ t)::String) [], RemoteEx    
+ception
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+  File "C:\Users\USER.ITISDK\
+Desktop\WAYPIK TRANSPORT PROJ
+ECT\WAYPIK_BACKEND\test_api.p
+y", line 160, in <module>
+    run_all_tests()
+    ~~~~~~~~~~~~~^^
+  File "C:\Users\USER.ITISDK\
+Desktop\WAYPIK TRANSPORT PROJ
+ECT\WAYPIK_BACKEND\test_api.p
+y", line 124, in 
+run_all_tests
+    print("\n\u26a0\ufe0f  
+Registration failed. User 
+might already exist.")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^
+  File "C:\Users\USER.ITISDK\
+AppData\Local\Programs\Python
+\Python313\Lib\encodings\cp12
+52.py", line 19, in encode
+    return codecs.charmap_enc
+ode(input,self.errors,encodin
+g_table)[0]
+           ~~~~~~~~~~~~~~~~~~
+~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^
+UnicodeEncodeError: 
+'charmap' codec can't encode 
+characters in position 2-3: 
+character maps to <undefined>
+
+During handling of the above 
+exception, another exception 
+occurred:
+
+Traceback (most recent call 
+last):
+  File "C:\Users\USER.ITISDK\
+Desktop\WAYPIK TRANSPORT PROJ
+ECT\WAYPIK_BACKEND\test_api.p
+y", line 166, in <module>
+    print(f"\n\u274c ERROR: 
+{str(e)}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^
+^^^^^
+  File "C:\Users\USER.ITISDK\
+AppData\Local\Programs\Python
+\Python313\Lib\encodings\cp12
+52.py", line 19, in encode
+    return codecs.charmap_enc
+ode(input,self.errors,encodin
+g_table)[0]
+           ~~~~~~~~~~~~~~~~~~
+~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^
+UnicodeEncodeError: 
+'charmap' codec can't encode 
+character '\u274c' in 
+position 2: character maps 
+to <undefined>

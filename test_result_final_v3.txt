@@ -1,0 +1,115 @@
+﻿
+============================================================
+WAYPIK BACKEND API TESTS
+============================================================
+Make sure the development server is running!
+python manage.py runserver
+============================================================
+
+[TEST 1] Testing Registration...
+
+============================================================
+1. REGISTRATION TEST
+============================================================
+Status Code: 201
+Response: {
+  "message": "Account created successfully",
+  "user": {
+    "id": 2,
+    "phone": "+233550000000",
+    "first_name": "Antigravity",
+    "last_name": "Test",
+    "role": "PASSENGER"
+  }
+}
+============================================================
+
+
+[TEST 2] Testing Login...
+
+============================================================
+2. LOGIN TEST
+============================================================
+Status Code: 200
+Response: {
+  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3MzkzMzA4MCwiaWF0IjoxNzczODQ2NjgwLCJqdGkiOiJlMDFlMTVlOGQ3ZDk0NDc2YmQxZGE0N2I1ZGNjMjE1NyIsInVzZXJfaWQiOiIyIn0.1E4Iob3-ROY1LWjzrIf3M8tb0gsDiyMhFcZswU4um-A",
+  "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzczODQ2OTgwLCJpYXQiOjE3NzM4NDY2ODAsImp0aSI6ImNkMjc3ODgyYmRlNTRmYWQ4MGRmNzA5Y2YwZTg2ZjhlIiwidXNlcl9pZCI6IjIifQ.Kph6kTFTNDO5E2phaY1Tz_LUEh_UednJLiLPIIovkTU"
+}
+============================================================
+
+
+SUCCESS: Login successful! Access token obtained.
+
+[TEST 3] Testing Protected Endpoint...
+
+============================================================
+3. PROTECTED ENDPOINT TEST
+============================================================
+Status Code: 200
+Response: {
+  "message": "Hello +233550000000, you are authenticated!",
+  "user": {
+    "id": 2,
+    "phone": "+233550000000",
+    "email": "antigravity@test.com",
+    "first_name": "Antigravity",
+    "last_name": "Test",
+    "role": "PASSENGER"
+  }
+}
+============================================================
+
+
+[TEST 4] Testing Get Profile...
+
+============================================================
+4. GET PROFILE TEST
+============================================================
+Status Code: 200
+Response: {
+  "id": 2,
+  "phone": "+233550000000",
+  "email": "antigravity@test.com",
+  "first_name": "Antigravity",
+  "last_name": "Test",
+  "role": "PASSENGER"
+}
+============================================================
+
+
+[TEST 5] Testing Update Profile...
+
+============================================================
+5. UPDATE PROFILE TEST
+============================================================
+Status Code: 200
+Response: {
+  "message": "Profile updated successfully",
+  "user": {
+    "id": 2,
+    "phone": "+233550000000",
+    "email": "antigravity@test.com",
+    "first_name": "Updated",
+    "last_name": "Name",
+    "role": "PASSENGER"
+  }
+}
+============================================================
+
+
+[TEST 6] Testing Logout...
+
+============================================================
+6. LOGOUT TEST
+============================================================
+Status Code: 200
+Response: {
+  "detail": "Successfully logged out."
+}
+============================================================
+
+
+============================================================
+ALL TESTS COMPLETED!
+============================================================
+
