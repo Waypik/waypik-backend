@@ -143,6 +143,17 @@ def test_token_refresh(refresh_token):
     return response.status_code == 200
 
 
+def test_forgot_password():
+    """Test forgot password endpoint"""
+    url = f"{BASE_URL}/auth/password/reset/"
+    data = {
+        "email": "antigravity@test.com"
+    }
+    response = requests.post(url, json=data)
+    print_response("9. FORGOT PASSWORD TEST", response)
+    return response.status_code == 200
+
+
 def run_all_tests():
     """Run all API tests"""
     print("\n" + "="*60)
@@ -196,6 +207,10 @@ def run_all_tests():
     tokens = test_login_get_all_tokens()
     if tokens:
         test_token_refresh(tokens.get('refresh'))
+
+    # Test 9: Forgot Password
+    print("\n[TEST 9] Testing Forgot Password...")
+    test_forgot_password()
 
     print("\n" + "="*60)
     print("ALL TESTS COMPLETED!")

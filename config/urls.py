@@ -10,8 +10,18 @@ from rest_framework_simplejwt.views import (
 )
 
 
+from django.views.generic import TemplateView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # This URL is required by dj-rest-auth to generate the password reset link
+    # In production, this should point to your Frontend (React/Flutter) password reset page
+    path(
+        'api/auth/password/reset/confirm/<uidb64>/<token>/',
+        TemplateView.as_view(template_name="password_reset_confirm.html"),
+        name='password_reset_confirm'
+    ),
 
     path('api/auth/login/', TokenObtainPairView.as_view(),
          name="token_obtain_pair"),

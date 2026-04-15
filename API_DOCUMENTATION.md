@@ -40,9 +40,13 @@ Authorization: Bearer <your_jwt_token>
 ```json
 {
     "message": "Account created successfully",
+    "tokens": {
+        "refresh": "eyJ0eXAiOiJKV1QiLCJhbGc...",
+        "access": "eyJ0eXAiOiJKV1QiLCJhbGc..."
+    },
     "user": {
         "id": 1,
-        "phone": "+1234567890",
+        "phone": "+233550000000",
         "first_name": "John",
         "last_name": "Doe",
         "role": "PASSENGER"
