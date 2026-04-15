@@ -24,3 +24,7 @@ env/
 
 # Static
 staticfiles/
+
+.DS_Store
+*.txt
+!requirements.txt
