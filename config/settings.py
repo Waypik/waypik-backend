@@ -72,21 +72,18 @@ REST_AUTH = {
     'JWT_AUTH_REFRESH_COOKIE': 'my-app-refresh-auth',
     'TOKEN_MODEL': None,
     'REGISTER_SERIALIZER': 'users.serializers.RegisterSerializer',
+    'PASSWORD_RESET_SERIALIZER': 'dj_rest_auth.serializers.PasswordResetSerializer',
 }
 
 # Django Allauth Configuration for Phone-based Authentication
-# Using the new configuration format (allauth >= 0.50)
-ACCOUNT_LOGIN_METHODS = {'username'}  # Phone is treated as username
-ACCOUNT_USER_MODEL_USERNAME_FIELD = 'phone'  # Use phone as the username field
-ACCOUNT_EMAIL_VERIFICATION = 'none'  # No email verification needed
-# Email doesn't need to be unique since phone is the identifier
-ACCOUNT_UNIQUE_EMAIL = False
-
-# Signup configuration - using new format to avoid deprecation warnings
+ACCOUNT_LOGIN_METHODS = {'username'}
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'phone'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_SIGNUP_FIELDS = {
-    'username': {'required': True},  # This maps to 'phone' field
+    'username': {'required': True},
     'email': {'required': False},
 }
+ACCOUNT_UNIQUE_EMAIL = False
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -154,11 +151,25 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 if not DEBUG:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# add rest framework settings
+# Email Configuration for Password Reset
+# Using Console backend for local testing - emails will appear in the terminal
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'webmaster@waypik.com'
+
+# REST FRAMEWORK Configuration
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
+    ],
+    "DEFAULT_THROTTLE_RATES": {
+        "anon": "100/day",
+        "user": "1000/day",
+        "health": "100/minute",
+    },
 }
 
 
