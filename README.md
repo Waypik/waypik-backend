@@ -73,4 +73,4 @@ Detailed documentation for setup and API usage can be found in the `docs/` direc
 - **Environment Safety**: Sensitive keys managed via `.env`.
 
 ---
-*Created with ❤️ for the Waypik Transport Project.*
+
