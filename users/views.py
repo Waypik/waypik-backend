@@ -4,6 +4,11 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework import status, generics
 from rest_framework_simplejwt.tokens import RefreshToken
+from dj_rest_auth.registration.views import SocialLoginView
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from .serializers import RegisterSerializer, UserMeSerializer, UserSerializer
 
 
@@ -122,3 +127,31 @@ class UserListView(generics.ListAPIView):
         # For now, return all users
         from .models import User
         return User.objects.all()
+
+
+# --- Social Login Views ---
+
+class GoogleLogin(SocialLoginView):
+    """
+    Endpoint for Google Social Login.
+    Expects an 'access_token' or 'code' from the frontend.
+    """
+    adapter_class = GoogleOAuth2Adapter
+    callback_url = "http://127.0.0.1:8000/"  # Replace with your frontend URL in production
+    client_class = OAuth2Client
+
+
+class FacebookLogin(SocialLoginView):
+    """
+    Endpoint for Facebook Social Login.
+    Expects an 'access_token' from the frontend.
+    """
+    adapter_class = FacebookOAuth2Adapter
+
+
+class TwitterLogin(SocialLoginView):
+    """
+    Endpoint for Twitter Social Login.
+    Expects 'access_token' and 'access_token_secret' from the frontend.
+    """
+    adapter_class = TwitterOAuthAdapter

@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # Third-party
     'rest_framework',
@@ -79,10 +80,12 @@ REST_AUTH = {
 ACCOUNT_LOGIN_METHODS = {'username'}
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'phone'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-ACCOUNT_SIGNUP_FIELDS = {
-    'username': {'required': True},
-    'email': {'required': False},
-}
+ACCOUNT_SIGNUP_FIELDS = [
+    'username*',   # mapped to custom USERNAME_FIELD ("phone")
+    'email',
+    'password1*',
+    'password2*',
+]
 ACCOUNT_UNIQUE_EMAIL = False
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
