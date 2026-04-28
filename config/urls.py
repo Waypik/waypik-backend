@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
-from dj_rest_auth.registration.views import SocialLoginView
+from users.views import GoogleLogin, FacebookLogin, TwitterLogin
 
 # add JWT urls
 from rest_framework_simplejwt.views import (
@@ -29,6 +29,11 @@ urlpatterns = [
 
     path('api/auth/', include('dj_rest_auth.urls')),
     path('api/auth/registration/', include('dj_rest_auth.registration.urls')),
+    
+    # Social Authentication Endpoints
+    path('api/auth/google/', GoogleLogin.as_view(), name='google_login'),
+    path('api/auth/facebook/', FacebookLogin.as_view(), name='facebook_login'),
+    path('api/auth/twitter/', TwitterLogin.as_view(), name='twitter_login'),
 
     # test urls
     path("api/users/", include("users.urls")),
